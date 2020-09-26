@@ -3,7 +3,11 @@ import Header from "./Header";
 import EntryList from "./EntryList";
 import CreateNew from "./CreateNew";
 import { USERS } from "../shared/users";
+import { addUser } from '../redux/ActionCreator';
 
+const mapDispatchToProps = (dispatch) => ({
+    addUser: (firstName, lastName, company, phone, note) => dispatch(addUser(firstName, lastName, company, phone, note))
+})
 class Main extends Component {
     constructor(props) {
         super(props);
@@ -19,7 +23,7 @@ class Main extends Component {
                 <Header></Header>
                 <div className="container-fluid">
                     <div className="col-lg-2">
-                        <CreateNew></CreateNew>
+                        <CreateNew addUser={this.props.addUser}></CreateNew>
                     </div>
                 </div>
             </div>

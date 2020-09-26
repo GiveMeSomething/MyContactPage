@@ -16,7 +16,7 @@ class CreateNew extends Component {
 
         this.toggleModal = this.toggleModal.bind(this);
         this.handleAvatar = this.handleAvatar.bind(this);
-
+        this.handleInfo = this.handleInfo.bind(this);
     }
 
     toggleModal() {
@@ -32,7 +32,7 @@ class CreateNew extends Component {
     }
 
     handleInfo(values) {
-
+        this.props.addUser(values.firstName, values.lastName, values.company, values.phone, values.note);
     }
 
     render() {
