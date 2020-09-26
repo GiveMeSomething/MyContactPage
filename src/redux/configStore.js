@@ -1,17 +1,11 @@
-import { Users } from "./users";
-import { InitialUser } from "./form";
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { createForms } from 'react-redux-form';
+import { createStore, combineReducers } from 'redux';
+import { User } from './user';
 
-export const configStore = () => {
+export const ConfigStore = () => {
     const store = createStore(
         combineReducers({
-            users: Users,
-            ...createForms({
-                user: InitialUser
-            })
-        }), applyMiddleware(thunk)
+            user: User
+        })
     );
     return store;
-}
+};

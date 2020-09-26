@@ -1,13 +1,14 @@
 import * as ActionTypes from './ActionTypes' ;
 
-export const addUser = (firstName, lastName, company, phone, note) => ({
+export const addUser = (firstName, lastName, company, phone, note, avatar) => ({
     type: ActionTypes.ADD_USER,
     payload: {
         firstName: firstName,
         lastName: lastName,
         company: company,
         phone: phone,
-        note: note
+        note: note,
+        avatar: avatar
     }
 });
 

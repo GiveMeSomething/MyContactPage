@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     Button, Label, Row, Col,
-    Modal, ModalHeader, ModalBody, ModalFooter
+    Modal, ModalHeader, ModalBody
 } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 class CreateNew extends Component {
@@ -32,7 +32,11 @@ class CreateNew extends Component {
     }
 
     handleInfo(values) {
-        this.props.addUser(values.firstName, values.lastName, values.company, values.phone, values.note);
+        this.props.addUser(values.firstName, values.lastName, values.company, values.phone, values.note, this.state.avatar);
+        this.toggleModal();
+        this.setState({
+            avatar: "assets/images/avatar_default.jpg"
+        });
     }
 
     render() {
@@ -49,7 +53,7 @@ class CreateNew extends Component {
                             <div classname="row">
                                 <div classname="col-12">
                                     <div class="avatar-wrapper">
-                                        <img class="profile-pic" src={this.state.avatar} />
+                                        <img class="profile-pic" src={this.state.avatar} alt="avt"/>
                                     </div>
                                     <div class="container-fluid">
                                         <div className="row">
@@ -129,8 +133,8 @@ class CreateNew extends Component {
                                                     model=".phone"
                                                     show="touched"
                                                     messages={{
-                                                        required: "Trường này không được bỏ trống",
-                                                        isPhoneNumber: "Số điện thoại không hợp lệ"
+                                                        required: "Trường này không được bỏ trống ",
+                                                        isPhoneNumber: "Số điện thoại không hợp lệ "
                                                     }}
                                                 />
                                             </Col>
