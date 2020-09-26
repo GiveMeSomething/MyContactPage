@@ -10,7 +10,8 @@ class Header extends Component {
         super(props);
 
         this.state = {
-            isNavOpen: false
+            isNavOpen: false,
+            isModalOpen: false
         }
 
         this.toggleNavbar = this.toggleNavbar.bind(this);
@@ -22,12 +23,20 @@ class Header extends Component {
         });
     }
 
-    editUser(){
+    toggleModal(){
+        this.setState({
+            isModalOpen: !this.state.isModalOpen
+        })
+    }
+
+    handleInfo(){
 
     }
 
-    
+    editUser() {
 
+    }
+    
     render() {
         return (
             <div>
@@ -69,7 +78,8 @@ class Header extends Component {
                         </div>
                     </Navbar>
                 </div>
-            </div >
+            </div>
+
         );
     }
 }
