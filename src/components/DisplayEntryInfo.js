@@ -7,7 +7,7 @@ class DisplayEntryInfo extends Component {
         this.deleteUser = this.deleteUser.bind(this);
     }
 
-    deleteUser(){
+    deleteUser() {
         this.props.deleteUser(this.props.entry);
         this.props.getSelected(null);
     }
@@ -19,7 +19,8 @@ class DisplayEntryInfo extends Component {
                 <div className="container">
                     {RenderEntryInfo(this.props.entry)}
                     <div className="row d-flex justify-content-end pr-2">
-                        <Button color="danger" onClick={this.deleteUser}>Xóa liên hệ</Button>
+                        <Button color="primary m-1">Chỉnh sửa</Button>
+                        <Button color="danger m-1" onClick={this.deleteUser}>Xóa liên hệ</Button>
                     </div>
                 </div>
             );
