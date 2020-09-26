@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {
     Input,
-    Navbar, NavbarToggler, NavbarBrand, Collapse, Nav, NavItem, NavLink,
-    Button
+    Navbar, NavbarToggler, NavbarBrand
 } from 'reactstrap';
 
 class Header extends Component {
@@ -60,7 +59,6 @@ class Header extends Component {
                     </Navbar>
                 </div>
             </div>
-
         );
     }
 }
