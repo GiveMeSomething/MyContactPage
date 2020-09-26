@@ -1,31 +1,35 @@
 import React, { Component } from "react";
-import { ListGroup, ListGroupItem, } from "reactstrap";
+import { ListGroup, ListGroupItem } from "reactstrap";
 
 class EntryList extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            users: this.props.user,
             searchInput: ''
         };
     }
+
     render() {
-        console.log(this.state.users);
         return (
-            <div>
-                <ListGroup>
-                    {RenderUser(this.state.users)}
-                </ListGroup>
-            </div>
+            <ListGroup>
+                {RenderUser(this.props.user, this.props.getSelected)}
+            </ListGroup>
         );
     }
 }
 
-function RenderUser(users) {
+function RenderUser(users, getSelected) {
+    if (users === null) {
+        return (
+            <div></div>
+        )
+    }
     const view = users.map((user) => {
         return (
-            <ListGroupItem>
+            <ListGroupItem onClick={() => {
+                getSelected(user);
+            }}>
                 <div className="container-fluid entry">
                     <div className="row">
                         <div className="col-4 align-content-center">
@@ -33,7 +37,7 @@ function RenderUser(users) {
                         </div>
                         <div className="col-8">
                             <div className="row">
-                                <h4>{user.firstName.concat(" ", user.lastName)}</h4>
+                                <h5>{user.firstName.concat(" ", user.lastName)}</h5>
                             </div>
                             <div className="row">
                                 {

@@ -28,14 +28,6 @@ class Header extends Component {
             isModalOpen: !this.state.isModalOpen
         })
     }
-
-    handleInfo(){
-
-    }
-
-    editUser() {
-
-    }
     
     render() {
         return (

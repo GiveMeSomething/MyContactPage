@@ -12,12 +12,9 @@ export const addUser = (firstName, lastName, company, phone, note, avatar) => ({
     }
 });
 
-export const getUsers = (users) => ({
-    type: ActionTypes.GET_USER,
-    payload: users
-});
-
-export const usersFailed = (errMessage) => ({
-    type: ActionTypes.USER_FAILED,
-    payload: errMessage
+export const deleteUser = (user) => ({
+    type: ActionTypes.DELETE_USER,
+    payload: {
+        user: user
+    }
 });

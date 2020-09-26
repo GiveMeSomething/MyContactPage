@@ -93,7 +93,7 @@ class CreateNew extends Component {
                                             <Label htmlFor="lastName" md={2}>Tên</Label>
                                             <Col md={10}>
                                                 <Control.text
-                                                    model=".lastname" id="lastName"
+                                                    model=".lastName" id="lastName"
                                                     name="lastName" placeholder="Tên"
                                                     className="form-control"
                                                     validators={

@@ -2,14 +2,23 @@ import React, { Component } from 'react';
 import Header from "./Header";
 import CreateNew from "./CreateNew";
 import EntryList from "./EntryList";
-import { addUser } from '../redux/ActionCreator';
+import DisplayEntryInfo from "./DisplayEntryInfo";
+import { addUser, deleteUser } from '../redux/ActionCreator';
 import { connect } from 'react-redux';
 
 const mapDispatchToProps = (dispatch) => ({
-    addUser: (firstName, lastName, company, phone, note, avatar) => dispatch(addUser(firstName, lastName, company, phone, note, avatar))
+    addUser: (firstName, lastName, company, phone, note, avatar) => dispatch(
+        addUser(firstName, lastName, company, phone, note, avatar)
+    ),
+    deleteUser: (user) => dispatch(
+        deleteUser(user)
+    )
+
 })
 
 const mapStateToProps = (state) => {
+    console.log("MAIN");
+    console.log(state);
     return {
         user: state.user
     }
@@ -18,9 +27,31 @@ const mapStateToProps = (state) => {
 class Main extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            selectedEntry: null
+        }
+    }
+
+    getSelected = (entry) => {
+        if (entry === null) {
+            return;
+        } else {
+            this.setState({
+                selectedEntry: entry
+            })
+        }
+    }
+
+    getSelected = (entry) => {
+        console.log(entry);
+        this.setState({
+            selectedEntry: entry
+        })
     }
 
     render() {
+
         return (
             <div>
                 <Header></Header>
@@ -32,10 +63,13 @@ class Main extends Component {
                             </div>
                         </div>
                         <div className="col-lg-4">
-                            <EntryList user={this.props.user}></EntryList>
+                            <EntryList user={this.props.user} getSelected={this.getSelected}></EntryList>
                         </div>
                         <div className="col-lg-6">
-
+                            <DisplayEntryInfo
+                                entry={this.state.selectedEntry}
+                                deleteUser={this.props.deleteUser}>
+                            </DisplayEntryInfo>
                         </div>
                     </div>
                 </div>

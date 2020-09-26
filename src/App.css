@@ -9,11 +9,6 @@
   transition: all 0.3s ease;
 }
 
-.avatar-wrapper:hover {
-  transform: scale(1.05);
-  cursor: pointer;
-}
-
 .entry {
   transition: all 0.3s ease;
 }
@@ -21,10 +16,6 @@
 .entry:hover {
   transform: scale(1.05);
   cursor: pointer;
-}
-
-.avatar-wrapper:hover .profile-pic {
-  opacity: 0.5;
 }
 
 .avatar-wrapper .profile-pic {
@@ -77,4 +68,5 @@
 .responsive-img {
   width: 50%;
   height: auto;
+  border-radius: 50%;
 }
