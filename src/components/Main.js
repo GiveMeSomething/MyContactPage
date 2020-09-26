@@ -17,8 +17,6 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const mapStateToProps = (state) => {
-    console.log("MAIN");
-    console.log(state);
     return {
         user: state.user
     }
@@ -44,7 +42,6 @@ class Main extends Component {
     }
 
     getSelected = (entry) => {
-        console.log(entry);
         this.setState({
             selectedEntry: entry
         })
@@ -68,7 +65,8 @@ class Main extends Component {
                         <div className="col-lg-6">
                             <DisplayEntryInfo
                                 entry={this.state.selectedEntry}
-                                deleteUser={this.props.deleteUser}>
+                                deleteUser={this.props.deleteUser}
+                                getSelected={this.getSelected}>
                             </DisplayEntryInfo>
                         </div>
                     </div>

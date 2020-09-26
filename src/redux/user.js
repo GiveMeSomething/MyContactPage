@@ -9,7 +9,7 @@ export const User = (state = USER, action) => {
             return state.concat(newUser);
         case ActionTypes.DELETE_USER:
             var target = action.payload.user;
-            return {...state, user: state.filter((user) => user.id !== target.id)}
+            return state.filter((user) => user.id !== target.id);
         default:
             return state;
     }

@@ -20,11 +20,6 @@ class EntryList extends Component {
 }
 
 function RenderUser(users, getSelected) {
-    if (users === null) {
-        return (
-            <div></div>
-        )
-    }
     const view = users.map((user) => {
         return (
             <ListGroupItem onClick={() => {

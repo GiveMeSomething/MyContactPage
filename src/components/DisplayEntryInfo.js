@@ -9,9 +9,9 @@ class DisplayEntryInfo extends Component {
 
     deleteUser(){
         this.props.deleteUser(this.props.entry);
+        this.props.getSelected(null);
     }
     render() {
-        console.log(this.props.entry);
         if (this.props.entry === null) {
             return (<div></div>);
         } else {
