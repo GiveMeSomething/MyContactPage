@@ -1,5 +1,4 @@
 {
-  "homepage":"https://givemesomething.github.io/ContactPage/",
   "name": "contact-list",
   "version": "0.1.0",
   "private": true,
@@ -25,7 +24,6 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "deploy": "gh-pages -b master -d build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
