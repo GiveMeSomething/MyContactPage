@@ -7,7 +7,8 @@ class EntryList extends Component {
 
         this.state = {
             postPerPage: 5,
-            currentPage: 1
+            currentPage: 1,
+            fileredInput: this.props.user
         }
     }
 
@@ -27,25 +28,36 @@ class EntryList extends Component {
     }
 
     prevPage = () => {
-        if (!this.state.currentPage === 1) {
+        if (!(this.state.currentPage === 1)) {
             this.setState({
                 currentPage: (this.state.currentPage - 1)
             })
         }
     }
 
+    setFilteredInput = (input) => {
+        this.setState({
+            fileredInput: input
+        })
+    }
+
     render() {
+        const filteredUserList = this.props.user.filter(
+            (user) =>
+                (user.firstName.concat(" ", user.lastName)).includes(this.props.searchInput)
+        );
         const indexOfLastPost = this.state.currentPage * this.state.postPerPage;
         const indexOfFirstPost = indexOfLastPost - this.state.postPerPage;
-        const currentPosts = this.props.user.slice(indexOfFirstPost, indexOfLastPost);
+        const currentPosts = filteredUserList.slice(indexOfFirstPost, indexOfLastPost);
 
         return (
             <div>
                 <ListGroup>
-                    {RenderUser(currentPosts, this.props.getSelected, this.props.searchInput)}
+                    {RenderUser(currentPosts, this.props.getSelected, this.props.searchInput, this.setFilteredInput)}
                 </ListGroup>
                 <div className="row d-flex justify-content-center">
-                    {RenderPaginationNav(this.props.user.length, this.state.postPerPage,
+                    {console.log(this.state.fileredInput.le)}
+                    {RenderPaginationNav(filteredUserList.length, this.state.postPerPage,
                         this.changePage, this.nextPage, this.prevPage)}
                 </div>
             </div>
@@ -92,9 +104,8 @@ function RenderPaginationNav(length, postPerPage, changePage, nextPage, prevPage
     }
 }
 
-function RenderUser(users, getSelected, searchInput) {
-    const filteredUserList = users.filter((user) => (user.firstName.concat(" ", user.lastName)).includes(searchInput));
-    const view = filteredUserList.map((user) => {
+function RenderUser(users, getSelected) {
+    const view = users.map((user) => {
         return (
             <ListGroupItem onClick={() => {
                 getSelected(user);
