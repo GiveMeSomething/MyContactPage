@@ -33,7 +33,8 @@ class DisplayEntryInfo extends Component {
                 <div className="container">
                     {RenderEntryInfo(this.props.entry)}
                     <div className="row d-flex justify-content-end pr-2">
-                        <Button color="danger" onClick={this.toggleConfirmModal}>Xóa liên hệ</Button>
+                        <Button color="primary">Chỉnh sửa</Button>
+                        <Button color="danger" onClick={this.deleteUser}>Xóa liên hệ</Button>
                     </div>
                     <Modal isOpen={this.state.isModalOpen} toggle={this.toggleConfirmModal}>
                         <ModalHeader close={closeBtn}>Xóa liên hệ</ModalHeader>
