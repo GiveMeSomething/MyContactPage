@@ -7,18 +7,18 @@ class EntryList extends Component {
 
         this.state = {
             postPerPage: 5,
-            currentPage: 1,
-            fileredInput: this.props.user
+            currentPage: 1
         }
     }
 
-
+    //pagination choose page
     changePage = (pageNumber) => {
         this.setState({
             currentPage: pageNumber
         })
     }
 
+    //pagination next page
     nextPage = (max) => {
         if (!(this.state.currentPage === max)) {
             this.setState({
@@ -27,6 +27,7 @@ class EntryList extends Component {
         }
     }
 
+    //pagination prev page
     prevPage = () => {
         if (!(this.state.currentPage === 1)) {
             this.setState({
@@ -35,17 +36,13 @@ class EntryList extends Component {
         }
     }
 
-    setFilteredInput = (input) => {
-        this.setState({
-            fileredInput: input
-        })
-    }
-
     render() {
+        //filter entry list to match search value
         const filteredUserList = this.props.user.filter(
-            (user) =>
-                (user.firstName.concat(" ", user.lastName)).includes(this.props.searchInput)
+            (user) => (user.firstName.concat(" ", user.lastName)).includes(this.props.searchInput)
         );
+
+        //value to specify entry to add in a page
         const indexOfLastPost = this.state.currentPage * this.state.postPerPage;
         const indexOfFirstPost = indexOfLastPost - this.state.postPerPage;
         const currentPosts = filteredUserList.slice(indexOfFirstPost, indexOfLastPost);
@@ -56,9 +53,10 @@ class EntryList extends Component {
                     {RenderUser(currentPosts, this.props.getSelected, this.props.searchInput, this.setFilteredInput)}
                 </ListGroup>
                 <div className="row d-flex justify-content-center">
-                    {console.log(this.state.fileredInput.le)}
-                    {RenderPaginationNav(filteredUserList.length, this.state.postPerPage,
-                        this.changePage, this.nextPage, this.prevPage)}
+                    {RenderPaginationNav(
+                        filteredUserList.length, this.state.postPerPage,
+                        this.changePage, this.nextPage, this.prevPage
+                    )}
                 </div>
             </div>
         );
@@ -67,6 +65,8 @@ class EntryList extends Component {
 
 function RenderPaginationNav(length, postPerPage, changePage, nextPage, prevPage) {
     const pageNumbers = [];
+
+    //calculate number of pages based on input
     for (let i = 1; i <= Math.ceil(length / postPerPage); i++) {
         pageNumbers.push(i);
     }
@@ -108,7 +108,7 @@ function RenderUser(users, getSelected) {
     const view = users.map((user) => {
         return (
             <ListGroupItem onClick={() => {
-                getSelected(user);
+                getSelected(user); //{data send to Main -> DisplayEntryInfo}
             }}>
                 <div className="container-fluid entry">
                     <div className="row">
