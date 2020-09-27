@@ -6,6 +6,12 @@ export const User = (state = USER, action) => {
         case ActionTypes.ADD_USER:
             var newUser = action.payload;
             newUser.id = state.length;
+            if(newUser.company === null){
+                newUser.company = '';
+            }
+            if(newUser.note === null){
+                newUser.note = '';
+            }
             return state.concat(newUser);
         case ActionTypes.DELETE_USER:
             var target = action.payload.user;
