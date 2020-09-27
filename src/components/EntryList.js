@@ -80,20 +80,20 @@ function RenderPaginationNav(length, postPerPage, changePage, nextPage, prevPage
             <nav>
                 <ul className="pagination">
                     <li class="page-item">
-                        <a onClick={() => prevPage()} className="page-link button" href="!#" aria-label="Previous">
+                        <a onClick={() => prevPage()} className="page-link button" href="#" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">Previous</span>
                         </a>
                     </li>
                     {pageNumbers.map((number) => (
                         <li key={number} className="page-item">
-                            <a onClick={() => changePage(number)} className="page-link button" href="!#">
+                            <a onClick={() => changePage(number)} className="page-link button" href="#">
                                 {number}
                             </a>
                         </li>
                     ))}
                     <li class="page-item">
-                        <a onClick={() => nextPage(pageNumbers.length)} className="page-link button" href="!#" aria-label="Next">
+                        <a onClick={() => nextPage(pageNumbers.length)} className="page-link button" href="#" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                             <span class="sr-only">Next</span>
                         </a>
