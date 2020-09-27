@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    Input,
+    Input, InputGroup, InputGroupAddon,
     Navbar, NavbarToggler, NavbarBrand
 } from 'reactstrap';
 
@@ -22,12 +22,12 @@ class Header extends Component {
         });
     }
 
-    toggleModal(){
+    toggleModal() {
         this.setState({
             isModalOpen: !this.state.isModalOpen
         })
     }
-    
+
     render() {
         return (
             <div>
@@ -36,11 +36,11 @@ class Header extends Component {
                         <div className="container-fluid">
                             <div className="col-lg-2 col-sm-9">
                                 <NavbarBrand>
-                                    <div className="row">
-                                        <div className="col-3">
-                                            <img src='assets/images/icon1.png' height="30" width="41" alt="contact-logo" />
+                                    <div className="row d-flex justify-content-start">
+                                        <div className="col-2">
+                                            <img src='assets/images/icon1.png' height="30" width="auto" alt="contact-logo" />
                                         </div>
-                                        <div className="col-9 pl-4">
+                                        <div className="col-10 pl-4">
                                             <h3>Danh bạ</h3>
                                         </div>
                                     </div>
@@ -48,11 +48,20 @@ class Header extends Component {
                                 <NavbarToggler onClick={this.toggleNavbar} />
                             </div>
                             <div className="col-lg-4 col-sm-12">
-                                <Input
-                                    type="text" name="searchInput"
-                                    id="searchInput"
-                                    placeholder="Tìm kiếm danh bạ">
-                                </Input>
+                                <div className="row">
+                                    <InputGroup>
+                                        <InputGroupAddon addonType="prepend" className="align-content-center pt-1">
+                                            <img src='assets/images/search.png' className="icon-wrapper " />
+                                        </InputGroupAddon>
+                                        <Input
+                                            type="text" name="searchInput"
+                                            className="searchBar"
+                                            id="searchInput"
+                                            placeholder="Tìm kiếm danh bạ"
+                                            onChange={(event) => this.props.setSearchInput(event.target.value)}>
+                                        </Input>
+                                    </InputGroup>
+                                </div>
                             </div>
                             <div className="col-lg-6">
 

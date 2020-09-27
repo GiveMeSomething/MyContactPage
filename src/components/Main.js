@@ -27,7 +27,8 @@ class Main extends Component {
         super(props);
 
         this.state = {
-            selectedEntry: null
+            selectedEntry: this.props.user[0],
+            searchInput: ''
         }
     }
 
@@ -47,11 +48,16 @@ class Main extends Component {
         })
     }
 
-    render() {
+    setSearchInput = (input) => {
+        this.setState({
+            searchInput: input
+        })
+    }
 
+    render() {
         return (
             <div>
-                <Header></Header>
+                <Header setSearchInput={this.setSearchInput}></Header>
                 <div className="container-fluid">
                     <div class="row">
                         <div className="col-lg-2">
@@ -60,13 +66,19 @@ class Main extends Component {
                             </div>
                         </div>
                         <div className="col-lg-4">
-                            <EntryList user={this.props.user} getSelected={this.getSelected}></EntryList>
+                            <EntryList
+                                user={this.props.user}
+                                getSelected={this.getSelected}
+                                searchInput={this.state.searchInput}
+                                changePage={this.changePage}>
+                            </EntryList>
                         </div>
                         <div className="col-lg-6">
                             <DisplayEntryInfo
                                 entry={this.state.selectedEntry}
                                 deleteUser={this.props.deleteUser}
-                                getSelected={this.getSelected}>
+                                getSelected={this.getSelected}
+                            >
                             </DisplayEntryInfo>
                         </div>
                     </div>
