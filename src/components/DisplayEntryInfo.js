@@ -1,20 +1,34 @@
 import React, { Component } from 'react';
-import { Label, Button } from 'reactstrap';
+import { Label, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class DisplayEntryInfo extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            isModalOpen: false
+        }
+
         this.deleteUser = this.deleteUser.bind(this);
+        this.toggleConfirmModal = this.toggleConfirmModal.bind(this);
     }
 
     deleteUser() {
         this.props.deleteUser(this.props.entry);
         this.props.getSelected(null);
     }
+
+    toggleConfirmModal(){
+        this.setState({
+            isModalOpen: !this.state.isModalOpen
+        })
+    }
+
     render() {
         if (this.props.entry === null) {
             return (<div></div>);
         } else {
+            const closeBtn = <button className="close" onClick={this.toggleConfirmModal}>&times;</button>;
             return (
                 <div className="container">
                     {RenderEntryInfo(this.props.entry)}
@@ -22,6 +36,16 @@ class DisplayEntryInfo extends Component {
                         <Button color="primary">Chỉnh sửa</Button>
                         <Button color="danger" onClick={this.deleteUser}>Xóa liên hệ</Button>
                     </div>
+                    <Modal isOpen={this.state.isModalOpen} toggle={this.toggleConfirmModal}>
+                        <ModalHeader close={closeBtn}>Xóa liên hệ</ModalHeader>
+                        <ModalBody>
+                            Xác nhận xóa liên hệ <b>{this.props.entry.firstName.concat(" ", this.props.entry.lastName)}</b>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color="primary" onClick={this.toggleConfirmModal}>Hủy</Button>{' '}
+                            <Button color="secondary" onClick={this.deleteUser}>Xác nhận</Button>
+                        </ModalFooter>
+                    </Modal>
                 </div>
             );
         }

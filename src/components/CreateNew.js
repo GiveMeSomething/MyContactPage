@@ -40,20 +40,26 @@ class CreateNew extends Component {
     }
 
     render() {
+        const closeBtn = <button className="close" onClick={this.toggleModal}>&times;</button>;
+        //regex to check required field and phone number (VN and US)
         const required = (val) => val && val.length;
-        const isPhoneNumber = (val) => /(09|03|07|08|05)+[0-9]{8}/g.test(val);
+        const isPhoneNumber = (val) => /(09|03|07|08|05)+[0-9]{8}/g.test(val) || //VN
+            /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/g.test(val); //US
         return (
             <div>
                 <Button color="primary" onClick={this.toggleModal}>Thêm liên hệ</Button>
+                {/* pop-up modal to add new user */}
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal} className="modal-lg">
-                    <ModalHeader toggle={this.toggleModa}>Tạo địa chỉ liên hệ mới</ModalHeader>
+                    <ModalHeader close={closeBtn}>
+                        Tạo địa chỉ liên hệ mới
+                    </ModalHeader>
                     <hr className="w-100 border border-primary" />
                     <ModalBody>
                         <div className="container-fluid">
                             <div classname="row">
                                 <div classname="col-12">
                                     <div class="avatar-wrapper">
-                                        <img class="profile-pic" src={this.state.avatar} alt="avt"/>
+                                        <img class="profile-pic" src={this.state.avatar} alt="avt" />
                                     </div>
                                     <div class="container-fluid">
                                         <div className="row">
@@ -70,7 +76,7 @@ class CreateNew extends Component {
                                 <div className="col-12">
                                     <LocalForm onSubmit={(values) => this.handleInfo(values)}>
                                         <Row className="form-group">
-                                            <Label htmlFor="firstName" md={2}>Họ</Label>
+                                            <Label htmlFor="firstName" md={2}>Họ*</Label>
                                             <Col md={10}>
                                                 <Control.text
                                                     model=".firstName" id="firstName"
@@ -90,15 +96,15 @@ class CreateNew extends Component {
                                             </Col>
                                         </Row>
                                         <Row className="form-group">
-                                            <Label htmlFor="lastName" md={2}>Tên</Label>
+                                            <Label htmlFor="lastName" md={2}>Tên*</Label>
                                             <Col md={10}>
                                                 <Control.text
                                                     model=".lastName" id="lastName"
                                                     name="lastName" placeholder="Tên"
                                                     className="form-control"
-                                                    validators={
+                                                    validators={{
                                                         required
-                                                    }></Control.text>
+                                                    }}></Control.text>
                                                 <Errors
                                                     className="text-danger"
                                                     model=".lastName"
@@ -119,15 +125,15 @@ class CreateNew extends Component {
                                             </Col>
                                         </Row>
                                         <Row className="form-group">
-                                            <Label htmlFor="phone" md={2}>Di động</Label>
+                                            <Label htmlFor="phone" md={2}>Di động*</Label>
                                             <Col md={10}>
                                                 <Control.text
                                                     model=".phone" id="phone"
                                                     name="phone" placeholder="Di động"
                                                     className="form-control"
-                                                    validators={
+                                                    validators={{
                                                         required, isPhoneNumber
-                                                    }></Control.text>
+                                                    }}></Control.text>
                                                 <Errors
                                                     className="text-danger"
                                                     model=".phone"
@@ -157,7 +163,7 @@ class CreateNew extends Component {
                                         </div>
                                         <Row className="form-group">
                                             <Col className="d-flex justify-content-end">
-                                                <Button type="submit" color="primary">
+                                                <Button type="submit" color="primary" className="m-1">
                                                     Xong
                                                 </Button>
                                             </Col>
