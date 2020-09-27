@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/MyContactPage/static/css/main.a53aa7bb.chunk.css",
+    "main.js": "/MyContactPage/static/js/main.b180ca0b.chunk.js",
+    "main.js.map": "/MyContactPage/static/js/main.b180ca0b.chunk.js.map",
+    "runtime-main.js": "/MyContactPage/static/js/runtime-main.23bc665f.js",
+    "runtime-main.js.map": "/MyContactPage/static/js/runtime-main.23bc665f.js.map",
+    "static/css/2.11829350.chunk.css": "/MyContactPage/static/css/2.11829350.chunk.css",
+    "static/js/2.5ce7891d.chunk.js": "/MyContactPage/static/js/2.5ce7891d.chunk.js",
+    "static/js/2.5ce7891d.chunk.js.map": "/MyContactPage/static/js/2.5ce7891d.chunk.js.map",
+    "index.html": "/MyContactPage/index.html",
+    "precache-manifest.4d795e80c9220de7328e0b95e44f346f.js": "/MyContactPage/precache-manifest.4d795e80c9220de7328e0b95e44f346f.js",
+    "service-worker.js": "/MyContactPage/service-worker.js",
+    "static/css/2.11829350.chunk.css.map": "/MyContactPage/static/css/2.11829350.chunk.css.map",
+    "static/css/main.a53aa7bb.chunk.css.map": "/MyContactPage/static/css/main.a53aa7bb.chunk.css.map",
+    "static/js/2.5ce7891d.chunk.js.LICENSE.txt": "/MyContactPage/static/js/2.5ce7891d.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.23bc665f.js",
+    "static/css/2.11829350.chunk.css",
+    "static/js/2.5ce7891d.chunk.js",
+    "static/css/main.a53aa7bb.chunk.css",
+    "static/js/main.b180ca0b.chunk.js"
+  ]
+}
