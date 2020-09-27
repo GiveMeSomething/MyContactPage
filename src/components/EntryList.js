@@ -28,7 +28,7 @@ function RenderUser(users, getSelected) {
                 <div className="container-fluid entry">
                     <div className="row">
                         <div className="col-4 align-content-center">
-                            <img src={user.avatar} alt="avt" className="responsive-img"></img>
+                            <img src={user.avatar} alt="avt" className="responsive-img-wrapper"></img>
                         </div>
                         <div className="col-8">
                             <div className="row">

@@ -1,4 +1,4 @@
-import * as ActionTypes from './ActionTypes' ;
+import * as ActionTypes from './ActionTypes';
 
 export const addUser = (firstName, lastName, company, phone, note, avatar) => ({
     type: ActionTypes.ADD_USER,

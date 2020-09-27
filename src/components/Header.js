@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {
     Input,
-    Navbar, NavbarToggler, NavbarBrand, Collapse, Nav, NavItem, NavLink,
-    Button
+    Navbar, NavbarToggler, NavbarBrand
 } from 'reactstrap';
 
 class Header extends Component {
@@ -56,16 +55,7 @@ class Header extends Component {
                                 </Input>
                             </div>
                             <div className="col-lg-6">
-                                <Collapse isOpen={this.state.isNavOpen} navbar>
-                                    <Nav navbar>
-                                        <NavItem>
-                                            <NavLink className="nav-link" to='/home'>
-                                                <span className="fa fa-home fa-lg"></span>
-                                                <Button color="primary">Chỉnh sửa</Button>
-                                            </NavLink>
-                                        </NavItem>
-                                    </Nav>
-                                </Collapse>
+
                             </div>
                         </div>
                     </Navbar>

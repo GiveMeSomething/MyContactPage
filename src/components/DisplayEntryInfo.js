@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { 
+import {
     Label, Button, Modal, ModalHeader, ModalBody, ModalFooter,
-    Row, Col, 
+    Row, Col,
 } from 'reactstrap';
 import { LocalForm, Control, Errors } from 'react-redux-form';
 
@@ -20,6 +20,8 @@ class DisplayEntryInfo extends Component {
         this.toggleEditModal = this.toggleEditModal.bind(this);
         this.handleEditInfo = this.handleEditInfo.bind(this);
         this.handleAvatar = this.handleAvatar.bind(this);
+        this.initializeAvatar= this.initializeAvatar.bind(this);
+        this.getInitialState = this.getInitialState.bind(this);
     }
 
     deleteUser() {
@@ -27,19 +29,19 @@ class DisplayEntryInfo extends Component {
         this.props.getSelected(null);
     }
 
-    toggleConfirmModal(){
+    toggleConfirmModal() {
         this.setState({
             isConfirmModalOpen: !this.state.isConfirmModalOpen
         });
     }
 
-    toggleEditModal(){
+    toggleEditModal() {
         this.setState({
             isEditModalOpen: !this.state.isEditModalOpen
         });
     }
 
-    handleEditInfo(){
+    handleEditInfo() {
 
     }
 
@@ -47,6 +49,23 @@ class DisplayEntryInfo extends Component {
         this.setState({
             avatar: URL.createObjectURL(avatar.target.files[0])
         })
+    }
+
+    initializeAvatar(avatar){
+        this.setState({
+            avatar: avatar
+        });
+    }
+
+    getInitialState() {
+        this.initializeAvatar(this.props.entry.avatar);
+        return {
+            firstName: this.props.entry.firstName,
+            lastName: this.props.entry.lastName,
+            company: this.props.entry.company === null ? '' : this.props.entry.company,
+            phone: this.props.entry.phone,
+            note: this.props.entry.note === null ? '' : this.props.entry.note
+        }
     }
 
     render() {
@@ -57,26 +76,17 @@ class DisplayEntryInfo extends Component {
             const closeBtnConfirm = <button className="close" onClick={this.toggleConfirmModal}>&times;</button>;
             //edit modal "x" button
             const closeBtnEdit = <button className="close" onClick={this.toggleEditModal}>&times;</button>;
-            //disable button if no entry is selected
-            const editBtn = () => {
-                if(this.props.entry === null){
-                    return <Button color="info" disabled={true}>Chỉnh sửa</Button>
-                }else{
-                    return <Button color="primary">Chỉnh sửa</Button>
-                }
-            }
 
             //regex to validate editing form
             const required = (val) => val && val.length;
-            const isPhoneNumber = (val) => /(09|03|07|08|05)+[0-9]{8}/g.test(val) || //VN
-                /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/g.test(val); //US
+            const isPhoneNumber = (val) => /(09|03|07|08|05)+[0-9]{8}|^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})/g.test(val);
 
             return (
                 <div className="container">
                     {RenderEntryInfo(this.props.entry)}
                     <div className="row d-flex justify-content-end pr-2">
-                        {editBtn}
-                        <Button color="danger" onClick={this.toggleConfirmModal}>Xóa liên hệ</Button>
+                        <Button color="primary" className="m-1" onClick={this.toggleEditModal}>Chỉnh sửa</Button>
+                        <Button color="danger" className="m-1" onClick={this.toggleConfirmModal}>Xóa liên hệ</Button>
                     </div>
                     {/* confirmation modal */}
                     <Modal isOpen={this.state.isConfirmModalOpen} toggle={this.toggleConfirmModal}>
@@ -89,137 +99,135 @@ class DisplayEntryInfo extends Component {
                             <Button color="secondary" onClick={this.deleteUser}>Xác nhận</Button>
                         </ModalFooter>
                     </Modal>
+
                     {/* editing modal */}
                     <Modal isOpen={this.state.isEditModalOpen} toggle={this.toggleEditModal} className="modal-lg">
-                    <ModalHeader close={closeBtnEdit}>
-                        Chỉnh sửa địa chỉ liên hệ
-                    </ModalHeader>
-                    <hr className="w-100 border border-primary" />
-                    <ModalBody>
-                        <div className="container-fluid">
-                            <div classname="row">
-                                <div classname="col-12">
-                                    <div class="avatar-wrapper">
-                                        <img class="profile-pic" src={this.state.avatar} alt="avt" />
-                                    </div>
-                                    <div class="container-fluid">
-                                        <div className="row">
-                                            <input class="file-upload" type="file" id="upload" accept="image/*"
-                                                onChange={this.handleAvatar} />
+                        <ModalHeader close={closeBtnEdit}>
+                            Chỉnh sửa địa chỉ liên hệ
+                        </ModalHeader>
+                        <hr className="w-100 border border-primary" />
+                        <ModalBody>
+                            <div className="container-fluid">
+                                <div classname="row">
+                                    <div classname="col-12">
+                                        <div class="avatar-wrapper">
+                                            <img class="profile-pic" src={this.state.avatar} alt="avt" />
                                         </div>
-                                        <div className="row d-flex justify-content-center">
-                                            <label className="btn btn-primary" for="upload">
-                                                Upload
+                                        <div class="container-fluid">
+                                            <div className="row">
+                                                <input class="file-upload" type="file" id="upload" accept="image/*"
+                                                    onChange={this.handleAvatar} />
+                                            </div>
+                                            <div className="row d-flex justify-content-center">
+                                                <label className="btn btn-primary" for="upload">
+                                                    Upload
                                             </label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="col-12">
-                                    <LocalForm onSubmit={(values) => this.handleInfo(values)}>
-                                        <Row className="form-group">
-                                            <Label htmlFor="firstName" md={2}>Họ*</Label>
-                                            <Col md={10}>
-                                                <Control.text
-                                                    model=".firstName" id="firstName"
-                                                    name="firstName" placeholder="Họ"
-                                                    className="form-control"
-                                                    value={this.props.entry.firstName}
-                                                    validators={{
-                                                        required
-                                                    }}></Control.text>
-                                                <Errors
-                                                    className="text-danger"
-                                                    model=".firstName"
-                                                    show="touched"
-                                                    messages={{
-                                                        required: "Trường này không được bỏ trống"
-                                                    }}
-                                                />
-                                            </Col>
-                                        </Row>
-                                        <Row className="form-group">
-                                            <Label htmlFor="lastName" md={2}>Tên*</Label>
-                                            <Col md={10}>
-                                                <Control.text
-                                                    model=".lastName" id="lastName"
-                                                    name="lastName" placeholder="Tên"
-                                                    className="form-control"
-                                                    value={this.props.lastName}
-                                                    validators={{
-                                                        required
-                                                    }}></Control.text>
-                                                <Errors
-                                                    className="text-danger"
-                                                    model=".lastName"
-                                                    show="touched"
-                                                    messages={{
-                                                        required: "Trường này không được bỏ trống"
-                                                    }}
-                                                />
-                                            </Col>
-                                        </Row>
-                                        <Row className="form-group">
-                                            <Label htmlFor="company" md={2}>Công ty</Label>
-                                            <Col md={10}>
-                                                <Control.text
-                                                    model=".company" id="company"
-                                                    name="company" placeholder="Công ty"
-                                                    value={this.props.entry.company}
-                                                    className="form-control"></Control.text>
-                                            </Col>
-                                        </Row>
-                                        <Row className="form-group">
-                                            <Label htmlFor="phone" md={2}>Di động*</Label>
-                                            <Col md={10}>
-                                                <Control.text
-                                                    model=".phone" id="phone"
-                                                    name="phone" placeholder="Di động"
-                                                    className="form-control"
-                                                    value={this.props.entry.phone}
-                                                    validators={{
-                                                        required, isPhoneNumber
-                                                    }}></Control.text>
-                                                <Errors
-                                                    className="text-danger"
-                                                    model=".phone"
-                                                    show="touched"
-                                                    messages={{
-                                                        required: "Trường này không được bỏ trống ",
-                                                        isPhoneNumber: "Số điện thoại không hợp lệ "
-                                                    }}
-                                                />
-                                            </Col>
-                                        </Row>
-                                        <div className="container">
-                                            <hr className="w-100 border border-primary" />
-                                        </div>
-                                        <Row className="form-group">
-                                            <Label htmlFor="note" md={2}>Ghi chú</Label>
-                                            <Col md={10}>
-                                                <Control.textarea
-                                                    model=".note" id="note"
-                                                    name="note" placeholder="Ghi chú"
-                                                    className="form-control"
-                                                    value={this.props.entry.note}
-                                                    rows={5}></Control.textarea>
-                                            </Col>
-                                        </Row>
-                                        <div className="container">
-                                            <hr className="w-100 border border-primary" />
-                                        </div>
-                                        <Row className="form-group">
-                                            <Col className="d-flex justify-content-end">
-                                                <Button type="submit" color="primary" className="m-1">
-                                                    Xong
+                                    {/* edit form */}
+                                    <div className="col-12">
+                                        <LocalForm onSubmit={(values) => this.handleInfo(values)}
+                                            initialState={this.getInitialState}>
+                                            <Row className="form-group">
+                                                <Label htmlFor="firstName" md={2}>Họ*</Label>
+                                                <Col md={10}>
+                                                    <Control.text
+                                                        model=".firstName" id="firstName"
+                                                        name="firstName" placeholder="Họ"
+                                                        className="form-control"
+                                                        validators={{
+                                                            required
+                                                        }}></Control.text>
+                                                    <Errors
+                                                        className="text-danger"
+                                                        model=".firstName"
+                                                        show="touched"
+                                                        messages={{
+                                                            required: "Trường này không được bỏ trống"
+                                                        }}
+                                                    />
+                                                </Col>
+                                            </Row>
+                                            <Row className="form-group">
+                                                <Label htmlFor="lastName" md={2}>Tên*</Label>
+                                                <Col md={10}>
+                                                    <Control.text
+                                                        model=".lastName" id="lastName"
+                                                        name="lastName" placeholder="Tên"
+                                                        className="form-control"
+                                                        validators={{
+                                                            required
+                                                        }}></Control.text>
+                                                    <Errors
+                                                        className="text-danger"
+                                                        model=".lastName"
+                                                        show="touched"
+                                                        messages={{
+                                                            required: "Trường này không được bỏ trống"
+                                                        }}
+                                                    />
+                                                </Col>
+                                            </Row>
+                                            <Row className="form-group">
+                                                <Label htmlFor="company" md={2}>Công ty</Label>
+                                                <Col md={10}>
+                                                    <Control.text
+                                                        model=".company" id="company"
+                                                        name="company" placeholder="Công ty"
+                                                        className="form-control"></Control.text>
+                                                </Col>
+                                            </Row>
+                                            <Row className="form-group">
+                                                <Label htmlFor="phone" md={2}>Di động*</Label>
+                                                <Col md={10}>
+                                                    <Control.text
+                                                        model=".phone" id="phone"
+                                                        name="phone" placeholder="Di động"
+                                                        className="form-control"
+                                                        validators={{
+                                                            required, isPhoneNumber
+                                                        }}></Control.text>
+                                                    <Errors
+                                                        className="text-danger"
+                                                        model=".phone"
+                                                        show="touched"
+                                                        messages={{
+                                                            required: "Trường này không được bỏ trống ",
+                                                            isPhoneNumber: "Số điện thoại không hợp lệ "
+                                                        }}
+                                                    />
+                                                </Col>
+                                            </Row>
+                                            <div className="container">
+                                                <hr className="w-100 border border-primary" />
+                                            </div>
+                                            <Row className="form-group">
+                                                <Label htmlFor="note" md={2}>Ghi chú</Label>
+                                                <Col md={10}>
+                                                    <Control.textarea
+                                                        model=".note" id="note"
+                                                        name="note" placeholder="Ghi chú"
+                                                        className="form-control"
+                                                        rows={5}></Control.textarea>
+                                                </Col>
+                                            </Row>
+                                            <div className="container">
+                                                <hr className="w-100 border border-primary" />
+                                            </div>
+                                            <Row className="form-group">
+                                                <Col className="d-flex justify-content-end">
+                                                    <Button type="submit" color="primary" className="m-1">
+                                                        Xong
                                                 </Button>
-                                            </Col>
-                                        </Row>
-                                    </LocalForm>
+                                                </Col>
+                                            </Row>
+                                        </LocalForm>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </ModalBody>
-                </Modal>
+                        </ModalBody>
+                    </Modal>
                 </div>
             );
         }
@@ -227,13 +235,12 @@ class DisplayEntryInfo extends Component {
 }
 
 function RenderEntryInfo(user) {
-
     return (
         <div>
             <div className="container-fluid">
                 <div className="row d-flex justify-content-center">
                     <div className="col-3">
-                        <img src={user.avatar} className="responsive-img" alt="avt" />
+                        <img src={user.avatar} className="responsive-img responsive-img-wrapper" alt="avt" />
                     </div>
                     <div className="col-9">
                         <div className="row">
