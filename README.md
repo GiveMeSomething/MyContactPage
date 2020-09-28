@@ -17,3 +17,12 @@ Project using the following packages:
 * Reactstrap 
 * Redux Form
 * React Router
+
+Project's structure:
+* Header: contain logo and search bar
+* CreateNewUSer: contain "Thêm liên hệ" button and add new user function
+* EntryList: display all user, sorted alphabetically and display related user if using search bar. Click onto one user to see detail
+* DisplayEntryInfo: display selected user in EntryList. User can be deleted and edit from here.
+
+Note:
+All user added in the current session will be clear as project using Redux store.
