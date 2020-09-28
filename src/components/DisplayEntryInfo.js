@@ -77,7 +77,7 @@ class DisplayEntryInfo extends Component {
             //update user when finish editing
             const updatedUser = this.props.user.filter((user) => user.id === this.props.entry.id)[0];
             return (
-                <div className="container">
+                <div className="container  border-inputgroup">
                     {RenderEntryInfo(updatedUser)}
                     <div className="row d-flex justify-content-end pr-2">
                         <Button color="primary" className="m-1" onClick={this.toggleEditModal}>Chỉnh sửa</Button>

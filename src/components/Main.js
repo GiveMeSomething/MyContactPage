@@ -52,13 +52,9 @@ class Main extends Component {
 
     //set selected entry to display (input get from EntryList)
     getSelected = (entry) => {
-        if (entry === null) {
-            return;
-        } else {
-            this.setState({
-                selectedEntry: entry
-            })
-        }
+        this.setState({
+            selectedEntry: entry
+        })
     }
 
     //set search bar data to state.searchInput (input get from Header)
@@ -74,7 +70,7 @@ class Main extends Component {
                 <Header setSearchInput={this.setSearchInput}></Header>
                 <Switch>
                     <Route exact path="/MyContactPage/">
-                        <div className="container-fluid">
+                        <div className="container-fluid pt-5">
                             <div class="row">
                                 <div className="col-lg-2">
                                     <div className="row d-flex justify-content-center">

@@ -54,7 +54,9 @@ class CreateNew extends Component {
 
         return (
             <div>
-                <Button color="primary" onClick={this.toggleModal}>Thêm liên hệ</Button>
+                <div className="pt-3">
+                    <Button color="primary" size="lg" onClick={this.toggleModal}>Thêm liên hệ</Button>
+                </div>
                 {/* pop-up modal to add new user */}
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal} className="modal-lg">
                     <ModalHeader close={closeBtn}>
