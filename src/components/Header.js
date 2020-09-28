@@ -38,7 +38,7 @@ class Header extends Component {
                                 <NavbarBrand>
                                     <div className="row d-flex justify-content-start">
                                         <div className="col-2">
-                                            <img src='assets/images/icon1.png' height="30" width="auto" alt="contact-logo" />
+                                            <img src={require('../assets/icon1.png')} height="30" width="auto" alt="contact-logo" />
                                         </div>
                                         <div className="col-10 pl-4">
                                             <h3>Danh bạ</h3>
@@ -49,9 +49,10 @@ class Header extends Component {
                             </div>
                             <div className="col-lg-4 col-sm-12">
                                 <div className="row">
+                                    {/* searchbar */}
                                     <InputGroup>
                                         <InputGroupAddon addonType="prepend" className="align-content-center pt-1">
-                                            <img src='assets/images/search.png' className="icon-wrapper " />
+                                            <img src={require('../assets/search.png')} className="icon-wrapper" alt="icon" />
                                         </InputGroupAddon>
                                         <Input
                                             type="text" name="searchInput"

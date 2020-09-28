@@ -4,7 +4,7 @@ import {
     Row, Col,
 } from 'reactstrap';
 import { LocalForm, Control, Errors } from 'react-redux-form';
-
+import Avatar from '..\\assets\\avatar_default.png';
 class DisplayEntryInfo extends Component {
     constructor(props) {
         super(props);
@@ -12,78 +12,73 @@ class DisplayEntryInfo extends Component {
         this.state = {
             isConfirmModalOpen: false,
             isEditModalOpen: false,
-            avatar: this.props.avatar
+            avatar: Avatar
         }
 
         this.deleteUser = this.deleteUser.bind(this);
         this.toggleConfirmModal = this.toggleConfirmModal.bind(this);
         this.toggleEditModal = this.toggleEditModal.bind(this);
-        this.handleEditInfo = this.handleEditInfo.bind(this);
         this.handleAvatar = this.handleAvatar.bind(this);
-        this.initializeAvatar= this.initializeAvatar.bind(this);
-        this.getInitialState = this.getInitialState.bind(this);
+        this.handleInfo = this.handleInfo.bind(this);
     }
 
+    //run when dlt button pressed
     deleteUser() {
+        this.toggleConfirmModal();
         this.props.deleteUser(this.props.entry);
         this.props.getSelected(null);
     }
 
+    //pop-up to confirm delete user
     toggleConfirmModal() {
         this.setState({
             isConfirmModalOpen: !this.state.isConfirmModalOpen
         });
     }
 
+    //pop-up when edit button pressed
     toggleEditModal() {
         this.setState({
             isEditModalOpen: !this.state.isEditModalOpen
         });
     }
 
-    handleEditInfo() {
-
-    }
-
+    //upload avatar
     handleAvatar(avatar) {
         this.setState({
             avatar: URL.createObjectURL(avatar.target.files[0])
         })
     }
 
-    initializeAvatar(avatar){
-        this.setState({
-            avatar: avatar
-        });
+    //update current entry to store
+    handleInfo(values) {
+        this.props.updateUser(
+            this.props.entry.id, values.firstName, values.lastName, values.company,
+            values.phone, values.note, this.state.avatar
+        );
+        this.toggleEditModal();
     }
 
-    getInitialState() {
-        this.initializeAvatar(this.props.entry.avatar);
-        return {
-            firstName: this.props.entry.firstName,
-            lastName: this.props.entry.lastName,
-            company: this.props.entry.company === null ? '' : this.props.entry.company,
-            phone: this.props.entry.phone,
-            note: this.props.entry.note === null ? '' : this.props.entry.note
-        }
-    }
-
+    //add <hr> tags are line breaker
     render() {
         if (this.props.entry === null) {
             return (<div></div>);
         } else {
             //confirm modal "x" button
             const closeBtnConfirm = <button className="close" onClick={this.toggleConfirmModal}>&times;</button>;
+
             //edit modal "x" button
             const closeBtnEdit = <button className="close" onClick={this.toggleEditModal}>&times;</button>;
 
             //regex to validate editing form
             const required = (val) => val && val.length;
-            const isPhoneNumber = (val) => /(09|03|07|08|05)+[0-9]{8}|^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})/g.test(val);
+            const isPhoneNumber = (val) => /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/g.test(val);
 
+            //update user when finish editing
+            const updatedUser = this.props.user.filter((user) => user.id === this.props.entry.id)[0];
             return (
                 <div className="container">
-                    {RenderEntryInfo(this.props.entry)}
+                    {RenderEntryInfo(updatedUser)}
                     <div className="row d-flex justify-content-end pr-2">
                         <Button color="primary" className="m-1" onClick={this.toggleEditModal}>Chỉnh sửa</Button>
                         <Button color="danger" className="m-1" onClick={this.toggleConfirmModal}>Xóa liên hệ</Button>
@@ -99,7 +94,6 @@ class DisplayEntryInfo extends Component {
                             <Button color="secondary" onClick={this.deleteUser}>Xác nhận</Button>
                         </ModalFooter>
                     </Modal>
-
                     {/* editing modal */}
                     <Modal isOpen={this.state.isEditModalOpen} toggle={this.toggleEditModal} className="modal-lg">
                         <ModalHeader close={closeBtnEdit}>
@@ -110,6 +104,7 @@ class DisplayEntryInfo extends Component {
                             <div className="container-fluid">
                                 <div classname="row">
                                     <div classname="col-12">
+                                        {/* avatar upload  */}
                                         <div class="avatar-wrapper">
                                             <img class="profile-pic" src={this.state.avatar} alt="avt" />
                                         </div>
@@ -127,18 +122,16 @@ class DisplayEntryInfo extends Component {
                                     </div>
                                     {/* edit form */}
                                     <div className="col-12">
-                                        <LocalForm onSubmit={(values) => this.handleInfo(values)}
-                                            initialState={this.getInitialState}>
+                                        <LocalForm onSubmit={(values) => this.handleInfo(values)}>
                                             <Row className="form-group">
                                                 <Label htmlFor="firstName" md={2}>Họ*</Label>
                                                 <Col md={10}>
                                                     <Control.text
                                                         model=".firstName" id="firstName"
-                                                        name="firstName" placeholder="Họ"
+                                                        name="firstName" placeholder={this.props.entry.firstName}
+                                                        defaultValue={this.props.entry.firstName}
                                                         className="form-control"
-                                                        validators={{
-                                                            required
-                                                        }}></Control.text>
+                                                    ></Control.text>
                                                     <Errors
                                                         className="text-danger"
                                                         model=".firstName"
@@ -154,11 +147,13 @@ class DisplayEntryInfo extends Component {
                                                 <Col md={10}>
                                                     <Control.text
                                                         model=".lastName" id="lastName"
-                                                        name="lastName" placeholder="Tên"
+                                                        name="lastName" placeholder={this.props.entry.lastName}
+                                                        defaultValue={this.props.entry.lastName}
                                                         className="form-control"
                                                         validators={{
                                                             required
-                                                        }}></Control.text>
+                                                        }}
+                                                    ></Control.text>
                                                     <Errors
                                                         className="text-danger"
                                                         model=".lastName"
@@ -174,7 +169,9 @@ class DisplayEntryInfo extends Component {
                                                 <Col md={10}>
                                                     <Control.text
                                                         model=".company" id="company"
-                                                        name="company" placeholder="Công ty"
+                                                        name="company"
+                                                        placeholder={this.props.entry.company === null ? '' : this.props.entry.company}
+                                                        defaultValue={this.props.entry.company === null ? '' : this.props.entry.company}
                                                         className="form-control"></Control.text>
                                                 </Col>
                                             </Row>
@@ -183,17 +180,17 @@ class DisplayEntryInfo extends Component {
                                                 <Col md={10}>
                                                     <Control.text
                                                         model=".phone" id="phone"
-                                                        name="phone" placeholder="Di động"
+                                                        name="phone" placeholder={this.props.entry.phone}
                                                         className="form-control"
+                                                        defaultValue={this.props.entry.phone}
                                                         validators={{
-                                                            required, isPhoneNumber
+                                                            isPhoneNumber
                                                         }}></Control.text>
                                                     <Errors
                                                         className="text-danger"
                                                         model=".phone"
                                                         show="touched"
                                                         messages={{
-                                                            required: "Trường này không được bỏ trống ",
                                                             isPhoneNumber: "Số điện thoại không hợp lệ "
                                                         }}
                                                     />
@@ -207,7 +204,9 @@ class DisplayEntryInfo extends Component {
                                                 <Col md={10}>
                                                     <Control.textarea
                                                         model=".note" id="note"
-                                                        name="note" placeholder="Ghi chú"
+                                                        name="note"
+                                                        placeholder={this.props.entry.note === null ? '' : this.props.entry.note}
+                                                        defaultValue={this.props.entry.note === null ? '' : this.props.entry.note}
                                                         className="form-control"
                                                         rows={5}></Control.textarea>
                                                 </Col>
@@ -217,9 +216,12 @@ class DisplayEntryInfo extends Component {
                                             </div>
                                             <Row className="form-group">
                                                 <Col className="d-flex justify-content-end">
+                                                    <Button color="primary" className="m-1" onClick={this.toggleEditModal}>
+                                                        Hủy
+                                                    </Button>
                                                     <Button type="submit" color="primary" className="m-1">
                                                         Xong
-                                                </Button>
+                                                    </Button>
                                                 </Col>
                                             </Row>
                                         </LocalForm>

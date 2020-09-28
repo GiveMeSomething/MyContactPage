@@ -4,6 +4,8 @@ import {
     Modal, ModalHeader, ModalBody
 } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import Avatar from '..\\assets\\avatar_default.png';
+
 class CreateNew extends Component {
 
     constructor(props) {
@@ -11,7 +13,7 @@ class CreateNew extends Component {
 
         this.state = {
             isModalOpen: false,
-            avatar: "assets/images/avatar_default.jpg"
+            avatar: Avatar
         }
 
         this.toggleModal = this.toggleModal.bind(this);
@@ -25,26 +27,31 @@ class CreateNew extends Component {
         })
     }
 
+    //get uploaded avatar
     handleAvatar(avatar) {
         this.setState({
             avatar: URL.createObjectURL(avatar.target.files[0])
         })
     }
 
+    //add user to store
     handleInfo(values) {
         this.props.addUser(values.firstName, values.lastName, values.company, values.phone, values.note, this.state.avatar);
         this.toggleModal();
+        //reset defautl avatar for next addUser procedure
         this.setState({
-            avatar: "assets/images/avatar_default.jpg"
+            avatar: Avatar
         });
     }
 
     render() {
+        //"x" button for modal
         const closeBtn = <button className="close" onClick={this.toggleModal}>&times;</button>;
+
         //regex to check required field and phone number (VN and US)
         const required = (val) => val && val.length;
-        const isPhoneNumber = (val) => /(09|03|07|08|05)+[0-9]{8}/g.test(val) || //VN
-            /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/g.test(val); //US
+        const isPhoneNumber = (val) => /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/g.test(val);
+
         return (
             <div>
                 <Button color="primary" onClick={this.toggleModal}>Thêm liên hệ</Button>
@@ -73,6 +80,7 @@ class CreateNew extends Component {
                                         </div>
                                     </div>
                                 </div>
+                                {/* new user data input form */}
                                 <div className="col-12">
                                     <LocalForm onSubmit={(values) => this.handleInfo(values)}>
                                         <Row className="form-group">

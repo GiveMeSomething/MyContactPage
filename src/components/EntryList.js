@@ -39,7 +39,7 @@ class EntryList extends Component {
     render() {
         //filter entry list to match search value
         const filteredUserList = this.props.user.filter(
-            (user) => (user.firstName.concat(" ", user.lastName)).includes(this.props.searchInput)
+            (user) => (user.firstName.concat(" ", user.lastName)).toLowerCase().includes(this.props.searchInput)//tìm kiếm không dấu
         );
 
         //value to specify entry to add in a page
@@ -80,22 +80,22 @@ function RenderPaginationNav(length, postPerPage, changePage, nextPage, prevPage
             <nav>
                 <ul className="pagination">
                     <li class="page-item">
-                        <a onClick={() => prevPage()} className="page-link button" href="#" aria-label="Previous">
+                        <a onClick={() => prevPage()} className="page-link button" href="!#" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Previous</span>
+                            <span className="sr-only">Previous</span>
                         </a>
                     </li>
                     {pageNumbers.map((number) => (
                         <li key={number} className="page-item">
-                            <a onClick={() => changePage(number)} className="page-link button" href="#">
+                            <a onClick={() => changePage(number)} className="page-link button" href="!#">
                                 {number}
                             </a>
                         </li>
                     ))}
                     <li class="page-item">
-                        <a onClick={() => nextPage(pageNumbers.length)} className="page-link button" href="#" aria-label="Next">
+                        <a onClick={() => nextPage(pageNumbers.length)} className="page-link button" href="!#" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Next</span>
+                            <span className="sr-only">Next</span>
                         </a>
                     </li>
                 </ul>
@@ -109,13 +109,13 @@ function RenderUser(users, getSelected) {
         return (
             <ListGroupItem onClick={() => {
                 getSelected(user); //{data send to Main -> DisplayEntryInfo}
-            }}>
+            }} key={user.id}>
                 <div className="container-fluid entry">
                     <div className="row">
-                        <div className="col-lg-3 col-md-3 align-content-center">
+                        <div className="col-lg-3 col-md-3 m-1 align-content-center">
                             <img src={user.avatar} alt="avt" className="responsive-img-wrapper"></img>
                         </div>
-                        <div className="col-lg-8 col-md-8">
+                        <div className="col-lg-8 col-md-8 m-1">
                             <div className="row">
                                 <h5>{user.firstName.concat(" ", user.lastName)}</h5>
                             </div>
