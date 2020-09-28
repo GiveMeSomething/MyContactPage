@@ -1,25 +1,27 @@
 {
   "files": {
     "main.css": "/MyContactPage/static/css/main.a53aa7bb.chunk.css",
-    "main.js": "/MyContactPage/static/js/main.e0def776.chunk.js",
-    "main.js.map": "/MyContactPage/static/js/main.e0def776.chunk.js.map",
+    "main.js": "/MyContactPage/static/js/main.706a5ff8.chunk.js",
+    "main.js.map": "/MyContactPage/static/js/main.706a5ff8.chunk.js.map",
     "runtime-main.js": "/MyContactPage/static/js/runtime-main.23bc665f.js",
     "runtime-main.js.map": "/MyContactPage/static/js/runtime-main.23bc665f.js.map",
-    "static/css/2.11829350.chunk.css": "/MyContactPage/static/css/2.11829350.chunk.css",
-    "static/js/2.5ce7891d.chunk.js": "/MyContactPage/static/js/2.5ce7891d.chunk.js",
-    "static/js/2.5ce7891d.chunk.js.map": "/MyContactPage/static/js/2.5ce7891d.chunk.js.map",
+    "static/css/2.d9ad5f5c.chunk.css": "/MyContactPage/static/css/2.d9ad5f5c.chunk.css",
+    "static/js/2.d0b717a3.chunk.js": "/MyContactPage/static/js/2.d0b717a3.chunk.js",
+    "static/js/2.d0b717a3.chunk.js.map": "/MyContactPage/static/js/2.d0b717a3.chunk.js.map",
     "index.html": "/MyContactPage/index.html",
-    "precache-manifest.a009f26828ada95a3698235a70da050f.js": "/MyContactPage/precache-manifest.a009f26828ada95a3698235a70da050f.js",
+    "precache-manifest.9c16a38a55fbf934dd84eb0dacb84db0.js": "/MyContactPage/precache-manifest.9c16a38a55fbf934dd84eb0dacb84db0.js",
     "service-worker.js": "/MyContactPage/service-worker.js",
-    "static/css/2.11829350.chunk.css.map": "/MyContactPage/static/css/2.11829350.chunk.css.map",
+    "static/css/2.d9ad5f5c.chunk.css.map": "/MyContactPage/static/css/2.d9ad5f5c.chunk.css.map",
     "static/css/main.a53aa7bb.chunk.css.map": "/MyContactPage/static/css/main.a53aa7bb.chunk.css.map",
-    "static/js/2.5ce7891d.chunk.js.LICENSE.txt": "/MyContactPage/static/js/2.5ce7891d.chunk.js.LICENSE.txt"
+    "static/js/2.d0b717a3.chunk.js.LICENSE.txt": "/MyContactPage/static/js/2.d0b717a3.chunk.js.LICENSE.txt",
+    "static/media/avatar_default.png": "/MyContactPage/static/media/avatar_default.e32c6f04.png",
+    "static/media/icon1.png": "/MyContactPage/static/media/icon1.67701155.png"
   },
   "entrypoints": [
     "static/js/runtime-main.23bc665f.js",
-    "static/css/2.11829350.chunk.css",
-    "static/js/2.5ce7891d.chunk.js",
+    "static/css/2.d9ad5f5c.chunk.css",
+    "static/js/2.d0b717a3.chunk.js",
     "static/css/main.a53aa7bb.chunk.css",
-    "static/js/main.e0def776.chunk.js"
+    "static/js/main.706a5ff8.chunk.js"
   ]
 }
