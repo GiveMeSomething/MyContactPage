@@ -12,7 +12,15 @@ export const User = (state = USER, action) => {
             if (newUser.note === null) {
                 newUser.note = '';
             }
-            return state.concat(newUser);
+            return state.concat(newUser).sort((a, b) => {
+                if (a.firstName > b.firstName) {
+                    return 1;
+                } else if (a.firstName < b.firstName) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            });
         case ActionTypes.DELETE_USER:
             var target = action.payload.user;
             return state.filter((user) => user.id !== target.id);
@@ -30,6 +38,14 @@ export const User = (state = USER, action) => {
                     return user;
                 } else {
                     return user;
+                }
+            }).sort((a, b) => {
+                if (a.firstName > b.firstName) {
+                    return 1;
+                } else if (a.firstName < b.firstName) {
+                    return -1;
+                } else {
+                    return 0;
                 }
             })
         default:
