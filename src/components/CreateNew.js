@@ -147,7 +147,6 @@ class CreateNew extends Component {
                                                     model=".phone"
                                                     show="touched"
                                                     messages={{
-                                                        required: "Trường này không được bỏ trống ",
                                                         isPhoneNumber: "Số điện thoại không hợp lệ "
                                                     }}
                                                 />
